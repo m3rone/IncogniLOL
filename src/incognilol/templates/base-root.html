@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <link rel="shortcut icon" href="../static/media/favicon.webp" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/root.css">
+    <link rel="stylesheet" href="../static/css/rootpages.css">
+    <title>{% block title %}{% endblock %} | IncogniLOL</title>
+    {%block head%}{%endblock%}
+</head>
+<body>
+    <header class="indexmain"><h1><a href="/">IncogniLOL</a></h1></header>
+    {%block body%}{%endblock%}
+    <footer class="rootfooter">
+            <p><a href="/privacy">Privacy Policy</a></p>
+            <p><a href="/disclaimer">Disclaimer</a></p>
+            <p><a href="/contact">Contact</a></p>
+            <p><a href="/home">Browse</a></p>
+            <p><a href="https://codeberg.org/m3r/IncogniLOL">Repository</a></p>
+    </footer>
+</body>
+</html>

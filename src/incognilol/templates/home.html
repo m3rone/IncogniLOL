@@ -1,0 +1,29 @@
+{% extends 'base-root.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="../static/css/home.css">
+{%endblock%}
+
+{% block body %}
+<main class="homemain">
+    <section class="homelist">
+        <hr class="halfpagewide">
+    {% for post in postlist %}
+        <article class="perpost" data-id="{{post.id}}">
+            <a class="linkliketext" href="/gag/{{post.id}}">
+                <h4>{{post.title}}</h4>
+            </a>
+            {% if post.imglink %}
+                <a href="/gag/{{post.id}}"><img src="{{post.imglink}}" alt="{{post.id}}" loading="lazy"></a>
+            {% elif post.vidlink %}
+                <a href="/gag/{{post.id}}"><video src="{{post.vidlink}}" preload="none" poster="{{post.vidposter}}" controls loop>Your browser does not support video</video></a>
+            {% endif %}
+        </article>
+        <hr class="halfpagewide">
+    {% endfor %}
+    </section>
+    <button><a class="black" href="/home/{{postlist[-1].nextcursor}}">Next Page</a></button>
+</main>
+{% endblock %}

@@ -1,0 +1,12 @@
+{%extends "base-root.html"%}
+
+{%block title%}Error{%endblock%}
+
+{%block body%}
+<main class="indexmain">
+    {% if error %}
+    <p>An error has occured while processing your request.</p>
+    <p>{{error}}</p>
+    {% endif %}
+</main>
+{%endblock%}

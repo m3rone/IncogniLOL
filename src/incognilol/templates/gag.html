@@ -1,0 +1,21 @@
+{%extends "base-root.html"%}
+
+{%block title%}{{gag}}{%endblock%}
+
+{%block body%}
+<main class="indexmain">
+    {% if isvid or not isvid %}
+        <h2>{{title}}</h2>
+        {% if isvid %}
+            <video src="{{vidurl}}" controls loop autoplay>Your browser does not support videos</video>
+        {% elif not isvid %}
+            <img src="{{imgurl}}" alt="{{gag}}">
+        {% endif %}
+        <p><a href="https://9gag.com/gag/{{gag}}">Original link</a></p>
+        <p>Posted by: <a href="https://9gag.com/u/{{op}}">{{op}}</a></p>
+        <p>Posted on: {{uploaddate}}</p>
+        <p>Upvoted {{likes}} times</p>
+        <p>Downvoted {{dislikes}} times</p>
+    {% endif %}
+</main>
+{%endblock%}

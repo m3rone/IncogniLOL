@@ -1,0 +1,28 @@
+.homelist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.perpost {
+    text-align: center;
+    /* border: 1px solid black; */
+}
+
+.linkliketext {
+    color: var(--darktext);
+    text-decoration: none;
+}
+
+.halfpagewide {
+    width: 50%;
+}
+
+.homemain {
+    text-align: center;
+}
+
+.black {
+    color: black;
+}

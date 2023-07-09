@@ -1,0 +1,40 @@
+:root {
+    --darkbg: #595959;
+    --darktext: #F2F2F2;
+    --darklink: #a4a4f5;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    margin: 0px;
+    background-color: var(--darkbg);
+    color: var(--darktext);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+a {
+    color: var(--darklink);
+}
+
+.indexmain {
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.rootfooter {
+    display: flex;
+    justify-content: space-around;
+}
