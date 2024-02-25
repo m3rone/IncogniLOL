@@ -2,6 +2,7 @@ from flask import Flask, abort, render_template
 from bs4 import BeautifulSoup as bs
 import requests as req
 import json
+from datetime import datetime
 
 HOMEURL = "https://9gag.com/v1/feed-posts/type/home"
 GAGURL = "https://9gag.com/gag/{gag}"
@@ -61,6 +62,7 @@ def create_app():
         postinfo = postdata["data"]["post"]
         posttitle = postinfo["title"]
         uploaddate = postinfo["creationTs"]
+        human_uploaddate = datetime.fromtimestamp(uploaddate).strftime('%d.%m.%Y %H:%M')
         likes = postinfo["upVoteCount"]
         dislikes = postinfo["downVoteCount"]
         op = postinfo["creator"]["username"]
@@ -70,7 +72,7 @@ def create_app():
             video = VIDURL.format(gagid)
         elif not isvid:
             image = IMGURL.format(gagid)
-        return render_template("gag.html", gag = gagid, imgurl = image, isvid = isvid, vidurl = video, title = posttitle, op = op, uploaddate = uploaddate, likes = likes, dislikes = dislikes)
+        return render_template("gag.html", gag = gagid, imgurl = image, isvid = isvid, vidurl = video, title = posttitle, op = op, human_uploaddate = human_uploaddate, likes = likes, dislikes = dislikes)
 
     @app.route("/home", defaults={'after': ""})
     @app.route("/home/<after>")

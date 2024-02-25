@@ -17,6 +17,7 @@ Also feel free to open an issue for a functionality/design change you may want t
 ### TODO:
 
  - [ ] Configurable proxy option for images/videos
+ - [ ] Move to tailwind
  - [ ] Support for tag scrolling (maybe)
  - [ ] Support for comments (maybe)
  - [ ] Server-wide support to disable NSFW posts (most likely, I dont know)

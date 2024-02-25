@@ -13,12 +13,12 @@
     {% for post in postlist %}
         <article class="perpost" data-id="{{post.id}}">
             <a class="linkliketext" href="/gag/{{post.id}}">
-                <h4>{{post.title}}</h4>
+                <h2>{{post.title}}</h2>
             </a>
             {% if post.imglink %}
-                <a href="/gag/{{post.id}}"><img src="{{post.imglink}}" alt="{{post.id}}" loading="lazy"></a>
+                <a draggable="false" href="/gag/{{post.id}}"><img src="{{post.imglink}}" alt="{{post.id}}" loading="lazy"></a>
             {% elif post.vidlink %}
-                <a href="/gag/{{post.id}}"><video src="{{post.vidlink}}" preload="none" poster="{{post.vidposter}}" controls loop>Your browser does not support video</video></a>
+                <a draggable="false" href="/gag/{{post.id}}"><video src="{{post.vidlink}}" preload="none" poster="{{post.vidposter}}" controls loop>Your browser does not support video</video></a>
             {% endif %}
         </article>
         <hr class="halfpagewide">
