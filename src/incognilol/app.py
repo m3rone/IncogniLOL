@@ -103,7 +103,7 @@ def create_app():
             postlist.append(indpost)
         return render_template("home.html", postlist = postlist)
 
-    app.run(debug=True)
+    app.run(debug=True, host = "0.0.0.0")
     # return app
 
 create_app()

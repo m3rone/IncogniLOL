@@ -1,0 +1,9 @@
+version: '3'
+services:
+  incognilol:
+    container_name: incognilol
+    build:
+      context: .
+    ports:
+      - 22416:5000
+    restart: unless-stopped
