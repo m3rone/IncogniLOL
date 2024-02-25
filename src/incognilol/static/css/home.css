@@ -26,3 +26,11 @@
 .black {
     color: black;
 }
+
+.nextbutton {
+    display: inline-block;
+    padding: 0.5rem;
+    color: black;
+    background-color: inherit;
+    border: none;
+}

@@ -55,8 +55,8 @@ def create_app():
         isvid = True if "webm" in gagreqhtml else False
         soup = bs(gagreqhtml, 'html.parser')
         gag = str(soup.find_all('script')[-1])
-        with open("tmp/postinfo.txt", "w") as post:
-            post.write(gag)
+        # with open("tmp/postinfo.txt", "w") as post:
+        #     post.write(gag)
         postdata = json.loads(gag.replace("<script type=\"text/javascript\">window._config = JSON.parse(\"", "").replace("\");</script>", "").replace("\\", ""))
         postinfo = postdata["data"]["post"]
         posttitle = postinfo["title"]
