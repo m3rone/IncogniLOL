@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as bs
 import requests as req
 import json
 from datetime import datetime
+from .dev.types import api_type_from_dict
 
 HOMEURL = "https://9gag.com/v1/feed-posts/type/home"
 GAGURL = "https://9gag.com/gag/{gag}"
@@ -14,11 +15,11 @@ class HomePost:
     def __init__(self):
         self.id = ""
         self.title = ""
-        self.upvotes = ""
-        self.downvotes = ""
+        self.upvotes:int
+        self.downvotes:int
         self.op = ""
-        self.nsfw = ""
-        self.uploaddate = ""
+        self.nsfw:int
+        self.uploaddate:int
         self.imglink = ""
         self.vidlink = ""
         self.vidposter = ""
@@ -65,7 +66,7 @@ def create_app():
         human_uploaddate = datetime.fromtimestamp(uploaddate).strftime('%d.%m.%Y %H:%M')
         likes = postinfo["upVoteCount"]
         dislikes = postinfo["downVoteCount"]
-        op = postinfo["creator"]["username"]
+        op = postinfo["creator"]["username"] if postinfo["creator"] else "Anonymous"
         nsfw = postinfo["nsfw"]
         image, video = "", ""
         if isvid:
@@ -82,24 +83,25 @@ def create_app():
             homereq.raise_for_status()
         except Exception as exc:
             return render_template("error.html", error = exc)
-        homejson = json.loads(homereq.text)
-        postlistjson = [post for post in homejson["data"]["posts"]]
+        jsontoparse = json.loads(homereq.text)
+        homefeed = api_type_from_dict(jsontoparse)
+        postlistjson = [post for post in homefeed.data.posts]
         postlist = []
         for post in postlistjson:
             indpost = HomePost()
-            indpost.id = post["id"]
-            indpost.title = post['title']
-            indpost.op = post['creator']['username']
-            indpost.nsfw = post['nsfw']
-            indpost.upvotes = post['upVoteCount']
-            indpost.downvotes = post['downVoteCount']
-            if post['type'] == "Photo":
-                indpost.imglink = IMGURL.format(post["id"])
-            elif post['type'] == "Animated":
-                indpost.vidlink = VIDURL.format(post["id"])
-                indpost.vidposter = IMGURL.format(post['id'])
-            indpost.uploaddate = post['creationTs']
-            indpost.nextcursor = homejson['data']['nextCursor'].replace("after=","").replace("%3D", "")
+            indpost.id = post.id
+            indpost.title = post.title
+            indpost.op = post.creator.username if not post.is_anonymous else "Anonymous"  #type: ignore #TODO: pyright does not understand that we checked it
+            indpost.nsfw = post.nsfw
+            indpost.upvotes = post.up_vote_count
+            indpost.downvotes = post.down_vote_count
+            if post.type.value == "Photo":
+                indpost.imglink = post.images.image460.webp_url or IMGURL.format(post.id) # .webp_url may return none
+            elif post.type.value == "Animated":
+                indpost.vidlink = post.images.image460_sv.vp9_url or VIDURL.format(post.id) #TODO: why?
+                indpost.vidposter = post.images.image460.webp_url or IMGURL.format(post.id)
+            indpost.uploaddate = post.creation_ts
+            indpost.nextcursor = homefeed.data.next_cursor.replace("after=","").replace("%3D", "")
             postlist.append(indpost)
         return render_template("home.html", postlist = postlist)
 
